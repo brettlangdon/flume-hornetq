@@ -78,7 +78,8 @@ public class HornetQJMSSink extends EventSink.Base {
 	if( this.session == null || this.producer == null )
 	    throw new IllegalStateException("HornetQSink Not Initialized Properly: " + e);
 	try{
-	    TextMessage event = (TextMessage)session.createTextMessage(e.getBody().toString());
+	    String message = new String(e.getBody());
+	    TextMessage event = (TextMessage)session.createTextMessage(message);
 	    this.producer.send(event);
 	}catch(Exception ex){
 	    throw new IOException("HornetQ Exception: " + e);
